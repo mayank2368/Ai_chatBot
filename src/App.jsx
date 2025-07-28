@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ChatbotIcon from "./components/ChatbotIcon";
 import ChatForm from "./components/ChatForm";
+import ChatMessage from "./components/ChatMessage";
 
 const App = () => {
   const [chatHistory, setChatHistory] = useState([]);
@@ -26,14 +27,10 @@ const App = () => {
               <br /> How can I help you today?
             </p>
           </div>
-          {chatHistory.map((chat, index) => {
-            <ChatMessage />;
-          })}
-          <div className="message user-message">
-            <p className="message-text">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            </p>
-          </div>
+          {/* Render chat history dynamically */}
+          {chatHistory.map((chat, index) => (
+            <ChatMessage key={index} chat={chat} />
+          ))}
         </div>
         {/* Chatbot footer */}
         <div className="chat-footer">

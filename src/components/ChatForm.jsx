@@ -1,7 +1,7 @@
 import React from "react";
 import { useRef } from "react";
 
-const ChatForm = (setChatHistory) => {
+const ChatForm = ({ setChatHistory }) => {
   const inputRef = useRef();
 
   const handleFormSubmit = (e) => {
