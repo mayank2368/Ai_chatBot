@@ -6,8 +6,44 @@ import ChatMessage from "./components/ChatMessage";
 const App = () => {
   const [chatHistory, setChatHistory] = useState([]);
 
-  const generateBotResponse = (history) => {
-    console.log(history);
+  const generateBotResponse = async (history) => {
+    // Add "Thinking..." message immediately before API call
+    setChatHistory((prev) => [...prev, { role: "model", text: "Thinking..." }]);
+
+    history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: history }),
+    };
+
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_API_URL,
+        requestOptions
+      );
+      const data = await response.json();
+
+      if (!response.ok)
+        throw new Error(data.error.message || "Something is wrong!");
+
+      const apiResponseText = data.candidates[0].content.parts[0].text
+        .replace(/\*\*(.*?)\*\*/g, "$1")
+        .trim();
+
+      // Replace "Thinking..." with the actual bot response
+      setChatHistory((prev) => [
+        ...prev.filter((msg) => msg.text !== "Thinking..."),
+        { role: "model", text: apiResponseText },
+      ]);
+    } catch (error) {
+      console.log(error);
+      // Remove "Thinking..." if error occurs
+      setChatHistory((prev) =>
+        prev.filter((msg) => msg.text !== "Thinking...")
+      );
+    }
   };
 
   return (

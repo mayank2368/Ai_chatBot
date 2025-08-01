@@ -8,20 +8,13 @@ const ChatForm = ({ chatHistory, setChatHistory, generateBotResponse }) => {
     e.preventDefault();
     const userMessage = inputRef.current.value.trim();
     if (!userMessage) return;
-    //console.log(userMessage);
     inputRef.current.value = "";
-    // Update chat history with the user's message
-    setChatHistory((prev) => {
-      const updated = [...prev, { role: "user", text: userMessage }];
-      setTimeout(() => {
-        setChatHistory([...updated, { role: "model", text: "Thinking..." }]);
-      }, 1000);
-      generateBotResponse([
-        ...chatHistory,
-        { role: "user", text: userMessage },
-      ]);
-      return updated;
-    });
+
+    // Add user message to chatHistory
+    setChatHistory((prev) => [...prev, { role: "user", text: userMessage }]);
+
+    // Call generateBotResponse with updated history (including new user message)
+    generateBotResponse([...chatHistory, { role: "user", text: userMessage }]);
   };
 
   return (
