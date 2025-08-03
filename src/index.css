@@ -143,6 +143,10 @@ body {
   gap: 10px;
 }
 
+.chat-body .message.error .message-text {
+  color: red
+}
+
 .chat-body .bot-message svg {
   height: 35px;
   display: flex;

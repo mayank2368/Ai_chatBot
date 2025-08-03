@@ -4,7 +4,9 @@ import ChatbotIcon from "./ChatbotIcon";
 const ChatMessage = ({ chat }) => {
   return (
     <div
-      className={`message ${chat.role === "model" ? "bot" : "user"}-message`}
+      className={`message ${chat.role === "model" ? "bot" : "user"}-message ${
+        chat.error ? "error" : ""
+      }`}
     >
       {" "}
       {chat.role === "model" && <ChatbotIcon />}

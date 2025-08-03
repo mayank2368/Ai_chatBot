@@ -45,6 +45,15 @@ const App = () => {
       setChatHistory((prev) =>
         prev.filter((msg) => msg.text !== "Thinking...")
       );
+      setChatHistory((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1] = {
+          role: "model",
+          text: `⚠️ ${error.message}`,
+          error: true,
+        };
+        return updated;
+      });
     }
   };
 
