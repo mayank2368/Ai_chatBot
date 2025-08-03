@@ -14,7 +14,13 @@ const ChatForm = ({ chatHistory, setChatHistory, generateBotResponse }) => {
     setChatHistory((prev) => [...prev, { role: "user", text: userMessage }]);
 
     // Call generateBotResponse with updated history (including new user message)
-    generateBotResponse([...chatHistory, { role: "user", text: userMessage }]);
+    generateBotResponse([
+      ...chatHistory,
+      {
+        role: "user",
+        text: `Using the details provided above, please address this query: ${userMessage}`,
+      },
+    ]);
   };
 
   return (

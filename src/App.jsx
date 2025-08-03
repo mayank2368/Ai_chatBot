@@ -2,9 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import ChatbotIcon from "./components/ChatbotIcon";
 import ChatForm from "./components/ChatForm";
 import ChatMessage from "./components/ChatMessage";
+import footballInfo from "./footballInfo";
 
 const App = () => {
-  const [chatHistory, setChatHistory] = useState([]);
+  const [chatHistory, setChatHistory] = useState([
+    {
+      hideInChat: true,
+      role: "model",
+      text: `You are a friendly AI football assistant. 
+Greet users warmly and answer their questions about football using the info below:
+
+${footballInfo} 
+
+If a user just greets you (e.g., "hey", "hello"), reply with:
+"Hi there! 👋 How can I help you today? Is there anything you'd like to know about football?"`,
+    }, //adding football's info as the bot's intial message so it can respond to later msgs accordingly
+  ]);
   const [showChatbot, setShowChatbot] = useState(false);
   const chatBodyRef = useRef();
 
