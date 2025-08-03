@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ChatbotIcon from "./components/ChatbotIcon";
 import ChatForm from "./components/ChatForm";
 import ChatMessage from "./components/ChatMessage";
 
 const App = () => {
   const [chatHistory, setChatHistory] = useState([]);
+  const chatBodyRef = useRef();
 
   const generateBotResponse = async (history) => {
     // Add "Thinking..." message immediately before API call
@@ -46,8 +47,20 @@ const App = () => {
     }
   };
 
+  useEffect(() => {
+    // Auto-scroll whenever chat history updates
+    chatBodyRef.current.scrollTo({
+      top: chatBodyRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [chatHistory]);
+
   return (
     <div className="container">
+      <button id="chatbot-toggler">
+        <span className="material-symbols-rounded">mode_comment</span>
+        <span className="material-symbols-rounded">close</span>
+      </button>
       <div className="chatbot-popup">
         {/* Chatbot header */}
         <div className="chat-header">
@@ -60,7 +73,7 @@ const App = () => {
           </button>
         </div>
         {/* Chatbot body */}
-        <div className="chat-body">
+        <div ref={chatBodyRef} className="chat-body">
           <div className="message bot-message">
             <ChatbotIcon />
             <p className="message-text">

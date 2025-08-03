@@ -13,13 +13,35 @@
 body {
   width: 100%;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: linear-gradient(#F4F0FF, #DACDFF);
 }
 
+#chatbot-toggler {
+  position: fixed;
+  bottom: 30px;
+  right: 35px;
+  border: none;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #6D4FC2;
+  align-items: center;
+  justify-content: center;
+}
+
+#chatbot-toggler span{
+  position: absolute;
+  color: #fff;
+}
+
 .chatbot-popup {
+  bottom: 90px;
+  position: fixed;
+  right: 35px;
+  opacity: 0;
+  pointer-events: none;
   background: #fff;
   overflow: hidden;
   border-radius: 15px;
